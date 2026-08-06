@@ -18,7 +18,7 @@ Re-run the same prompt. It's idempotent: it re-reads the live skill list from th
 
 ## What gets installed
 
-The **"Mattpocock Skills"** group as the `skills` CLI lists it — the mainline engineering and productivity skills (code-review, tdd, grilling, wayfinder, and friends). The "General" group of extras is deliberately excluded. The list is read live at install time, never hardcoded here.
+The **"Mattpocock Skills"** group as the `skills` CLI lists it — the mainline engineering and productivity skills. The "General" group of extras is deliberately excluded. The list is read live at install time, never hardcoded here.
 
 Skills land as symlinks: the CLI materialises them into `~/.agents/skills/` and links them into `~/.claude/skills/`. That means one source of truth and clean updates.
 
