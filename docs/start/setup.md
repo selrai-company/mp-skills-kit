@@ -36,15 +36,17 @@ Touch nothing else in `~/.claude/skills/` — only names collected in step 2. Ne
 
 ## 4. Install the mainline set as global symlinks
 
-Run one install command with a `-s` flag per collected skill name (the CLI accepts many `-s` flags in one call). Do **not** pass `--copy` — symlinking is the default and is required:
+Run one install command with a `-s` flag per collected skill name (the CLI accepts many `-s` flags in one call). Do **not** pass `--copy`, and target **both** agents — the two-agent form is load-bearing: it makes the CLI place skills in the shared `~/.agents/skills/` store and symlink them into `~/.claude/skills/`, whereas a single-agent install copies files instead. Codex reads the shared store directly, so Codex support comes free from the same call:
 
 ```
-npx -y skills@latest add mattpocock/skills -g -a claude-code -s <name1> -s <name2> ... -y
+npx -y skills@latest add mattpocock/skills -g -a claude-code -a codex -s <name1> -s <name2> ... -y
 ```
 
-## 5. Codex, only if the CLI supports it
+If you script the `-s` flags in zsh, expand them as an array (zsh does not word-split unquoted variables) — or simply write every `-s <name>` out literally in the command.
 
-Attempt the same install once with `-a codex` in place of `-a claude-code`. If the `skills` CLI rejects `codex` as an agent target, or the command errors, skip Codex silently and move on — do not build any workaround.
+## 5. If the CLI ever rejects the codex agent target
+
+Only if the command in step 4 errors because `codex` is not a recognised agent target: re-run it with `-a claude-code` alone, accept that the CLI will install copies rather than symlinks, and say so plainly in the final report. Do not build any other workaround.
 
 ## 6. Verify and report
 
@@ -54,7 +56,7 @@ Then report to me:
 
 - How many mainline skills are installed and that all are symlinks.
 - Any skill that failed to install or whose symlink is broken, with the error.
-- Whether Codex was included or skipped because the `skills` CLI doesn't support it.
+- That Codex picks the same skills up from `~/.agents/skills/` (or, if step 5's fallback ran, that skills were installed as copies and why).
 - A reminder that new sessions pick the skills up automatically — no app restart is needed for skills.
 
 If anything failed, fix it by re-running the relevant step rather than inventing a different install method.
