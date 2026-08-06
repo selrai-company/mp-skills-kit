@@ -26,7 +26,7 @@ Skills land as symlinks: the CLI materialises them into `~/.agents/skills/` and 
 
 - **Global installs are symlinks, never raw copies.** If a mainline skill already exists globally as a copied directory, it is replaced by the symlink install.
 - **Project-level skill installs are never touched.** Only the global `~/.claude/skills/` directory is managed.
-- **Claude Code is the target.** Codex is included only if the `skills` CLI itself accepts it as an agent target; nothing custom is bolted on.
+- **Claude Code and Codex, one install.** The install targets both agents, which is also what makes the `skills` CLI use the shared store + symlink layout; Codex reads `~/.agents/skills/` directly. Nothing custom is bolted on.
 
 ## Requirements
 
